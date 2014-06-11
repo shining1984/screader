@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <fcntl.h>
 #include "Index.h"
 
 char* findingString = "Init";
@@ -59,9 +60,21 @@ int main(int argc, char *argv[]) {
 
     if ((strcmp(argv[1],"-v")) == 0) {
         printf("scread   version:0.1\n");
-        printf("author   shining\n");
-        printf("mail:shiningning1984@gmail.com\n");
+        printf("Author   shining\n");
+        printf("Mail:shiningning1984@gmail.com\n");
         return 0;
+    }else if ((strcmp(argv[1],"-help")) == 0) {
+        printf("scread <filename>              The scread will output all the AST nodes' information\n");
+        printf("scread <filename> <keyword>    The scread will output the AST nodes' matched the keyword.\n");
+        printf("scread -v                      The scread will output the version information.\n");
+        printf("scread -help                   The scread will output the help information.\n");
+        return 0;
+    }else {
+        int result = open(argv[1], O_RDONLY);
+        if (result == -1) {
+            printf("Can't open the file: %s.\n", argv[1]);
+            return -1;
+        }
     }
 
     numOfArgc = argc;
