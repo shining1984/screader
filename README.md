@@ -2,8 +2,11 @@ screader
 ========
 
 The screader is a soure code reading tool based the libclang. It is implemented by the C.
----------------------------------------------------------------------
+
+
+
 How to build the scread:
+---------------------------------------------------------
 1. You must install the clang on your computer.
    You can follow the doc: http://clang.llvm.org/get_started.html.
    But after you "make", you must "make install".
@@ -19,8 +22,10 @@ How to build the scread:
    make
 
 6. Then you can get the scread under the build directory.
-----------------------------------------------------------------------
+
+
 How to use the scread:
+------------------------------------------------------------
 
 You must come to the directory of the scread.
 
