@@ -2,9 +2,17 @@
 #include <stdbool.h>
 #include "Index.h"
 
+bool printKindSpelling(CXCursor cursor) {
+    enum CXCursorKind curKind = clang_getCursorKind(cursor);
+    const char *curkindSpelling = clang_getCString(
+                                  clang_getCursorKindSpelling(curKind));
+    printf("The AST node kind spelling is:%s\n", curkindSpelling);
+    return true;
+}
+
 bool printSpelling(CXCursor cursor) {
-    const char *astName = clang_getCString(clang_getCursorSpelling(cursor));
-    printf("The AST name is:%s\n", astName);
+    const char *astSpelling = clang_getCString(clang_getCursorSpelling(cursor));
+    printf("The AST node spelling is:%s\n", astSpelling);
     return true;
 }
 
@@ -23,8 +31,10 @@ bool printLocation(CXCursor cursor) {
     return true;
 }
 
-enum CXChildVisitResult printVisitor(CXCursor cursor, CXCursor parent, CXClientData client_data) {
+enum CXChildVisitResult printVisitor(CXCursor cursor, CXCursor parent,
+                                     CXClientData client_data) {
     printSpelling(cursor);
+    printKindSpelling(cursor);
     printLocation(cursor);
     return CXChildVisit_Recurse;
 }
@@ -36,6 +46,7 @@ int main(int argc, char *argv[]) {
                                                       CXTranslationUnit_None);
     CXCursor C = clang_getTranslationUnitCursor(TU);
     printSpelling(C);
+    printKindSpelling(C);
     printLocation(C);
 
     clang_visitChildren(C, printVisitor, NULL);
