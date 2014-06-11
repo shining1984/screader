@@ -2,6 +2,9 @@
 #include <stdbool.h>
 #include "Index.h"
 
+char* findingString = "Init";
+int numOfArgc = 0;
+
 bool printKindSpelling(CXCursor cursor) {
     enum CXCursorKind curKind = clang_getCursorKind(cursor);
     const char *curkindSpelling = clang_getCString(
@@ -33,21 +36,36 @@ bool printLocation(CXCursor cursor) {
 
 enum CXChildVisitResult printVisitor(CXCursor cursor, CXCursor parent,
                                      CXClientData client_data) {
-    printSpelling(cursor);
-    printKindSpelling(cursor);
-    printLocation(cursor);
+    char *astSpelling = clang_getCString(clang_getCursorSpelling(cursor));
+    if (numOfArgc == 3) {
+        if (strcmp(astSpelling, findingString) == 0) {
+            printSpelling(cursor);
+            printKindSpelling(cursor);
+            printLocation(cursor);
+        }
+    } else {
+        printSpelling(cursor);
+        printKindSpelling(cursor);
+        printLocation(cursor);
+    }
     return CXChildVisit_Recurse;
 }
 
 int main(int argc, char *argv[]) {
+    numOfArgc = argc;
+    if (numOfArgc == 3) {
+        findingString = argv[2];
+    }
+
     CXIndex Index = clang_createIndex(0,0);
     CXTranslationUnit TU = clang_parseTranslationUnit(Index, 0, argv, argc,
                                                       0, 0,
                                                       CXTranslationUnit_None);
     CXCursor C = clang_getTranslationUnitCursor(TU);
-    printSpelling(C);
-    printKindSpelling(C);
-    printLocation(C);
+
+//    printSpelling(C);
+//    printKindSpelling(C);
+//    printLocation(C);
 
     clang_visitChildren(C, printVisitor, NULL);
 
