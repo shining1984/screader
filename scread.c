@@ -52,6 +52,18 @@ enum CXChildVisitResult printVisitor(CXCursor cursor, CXCursor parent,
 }
 
 int main(int argc, char *argv[]) {
+    if ((argc > 3) || (argc < 2)) {
+        printf("You input wrong number arguments!\n");
+        return -1;
+    }
+
+    if ((strcmp(argv[1],"-v")) == 0) {
+        printf("scread   version:0.1\n");
+        printf("author   shining\n");
+        printf("mail:shiningning1984@gmail.com\n");
+        return 0;
+    }
+
     numOfArgc = argc;
     if (numOfArgc == 3) {
         findingString = argv[2];
