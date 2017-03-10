@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <fcntl.h>
-#include "Index.h"
+#include <clang-c/Index.h>
 
 char* findingString = "Init";
 int numOfArgc = 0;
@@ -88,9 +88,9 @@ int main(int argc, char *argv[]) {
                                                       CXTranslationUnit_None);
     CXCursor C = clang_getTranslationUnitCursor(TU);
 
-//    printSpelling(C);
-//    printKindSpelling(C);
-//    printLocation(C);
+    printSpelling(C);
+    printKindSpelling(C);
+    printLocation(C);
 
     clang_visitChildren(C, printVisitor, NULL);
 
