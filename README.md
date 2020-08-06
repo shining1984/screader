@@ -18,7 +18,7 @@ can use the "sudo apt-get install libclang1" to install the libclang.
 
 4. Use the cmd to create a link to libclang.so:
 
-  sudo ln -s libclang-10.so.1 libclang.so
+    sudo ln -s libclang-10.so.1 libclang.so
 
 5. Use git clone the source code of scread to you computer.
 
@@ -26,9 +26,9 @@ can use the "sudo apt-get install libclang1" to install the libclang.
 
 7. Under the build directory, use the cmd:
 
-   cmake ..
+    cmake ../
 
-   make
+    make
 
 6. Then you can get the scread under the build directory.
 
