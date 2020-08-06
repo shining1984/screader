@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <fcntl.h>
-#include <clang-c/Index.h>
+#include "clang-c/Index.h"
 
 char* findingString = "Init";
 int numOfArgc = 0;
